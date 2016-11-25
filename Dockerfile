@@ -1,14 +1,13 @@
-FROM google/debian:wheezy
-MAINTAINER Joe Beda <joe.github@bedafamily.com>
+FROM centos/python-35-centos7
+MAINTAINER Honza Horak <hhorak@redhat.com>
 
-RUN apt-get update && \
-    apt-get install -y python-dev python-pip && \
-    pip install redis flask
+ADD app /opt/app-root/src
 
-ADD app /app
+RUN pip install -r requirements.txt
 
-EXPOSE 80
 
-CMD [ "python", "/app/app.py" ]
+EXPOSE 8080
+
+CMD [ "python", "/opt/app-root/src/app.py" ]
 
 
